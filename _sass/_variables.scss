@@ -1,53 +1,53 @@
-/* ==========================================================================
-   Variables
-   ========================================================================== */
+// /* ==========================================================================
+//    Variables
+//    ========================================================================== */
 
-/*
-   Typography
-   ========================================================================== */
+// /*
+//    Typography
+//    ========================================================================== */
 
-$doc-font-size              : 16;
+// $doc-font-size              : 16;
 
-/* paragraph indention */
-$paragraph-indent           : false; // true, false (default)
-$indent-var                 : 1.3em;
+// /* paragraph indention */
+// $paragraph-indent           : false; // true, false (default)
+// $indent-var                 : 1.3em;
 
-/* system typefaces */
-$serif                      : Georgia, Times, serif;
-$sans-serif                 : -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
-$monospace                  : Monaco, Consolas, "Lucida Console", monospace;
+// /* system typefaces */
+// $serif                      : Georgia, Times, serif;
+// $sans-serif                 : -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+// $monospace                  : Monaco, Consolas, "Lucida Console", monospace;
 
-/* sans serif typefaces */
-$sans-serif-narrow          : $sans-serif;
-$helvetica                  : Helvetica, "Helvetica Neue", Arial, sans-serif;
+// /* sans serif typefaces */
+// $sans-serif-narrow          : $sans-serif;
+// $helvetica                  : Helvetica, "Helvetica Neue", Arial, sans-serif;
 
-/* serif typefaces */
-$georgia                    : Georgia, serif;
-$times                      : Times, serif;
-$bodoni                     : "Bodoni MT", serif;
-$calisto                    : "Calisto MT", serif;
-$garamond                   : Garamond, serif;
+// /* serif typefaces */
+// $georgia                    : Georgia, serif;
+// $times                      : Times, serif;
+// $bodoni                     : "Bodoni MT", serif;
+// $calisto                    : "Calisto MT", serif;
+// $garamond                   : Garamond, serif;
 
-$global-font-family         : $sans-serif;
-$header-font-family         : $sans-serif;
-$caption-font-family        : $serif;
+// $global-font-family         : $sans-serif;
+// $header-font-family         : $sans-serif;
+// $caption-font-family        : $serif;
 
-/* type scale */
-$type-size-1                : 2.441em;  // ~39.056px
-$type-size-2                : 1.953em;  // ~31.248px
-$type-size-3                : 1.563em;  // ~25.008px
-$type-size-4                : 1.25em;   // ~20px
-$type-size-5                : 1em;      // ~16px
-$type-size-6                : 0.75em;   // ~12px
-$type-size-7                : 0.6875em; // ~11px
-$type-size-8                : 0.625em;  // ~10px
+// /* type scale */
+// $type-size-1                : 2.441em;  // ~39.056px
+// $type-size-2                : 1.953em;  // ~31.248px
+// $type-size-3                : 1.563em;  // ~25.008px
+// $type-size-4                : 1.25em;   // ~20px
+// $type-size-5                : 1em;      // ~16px
+// $type-size-6                : 0.75em;   // ~12px
+// $type-size-7                : 0.6875em; // ~11px
+// $type-size-8                : 0.625em;  // ~10px
 
-/* masthead properties */
-$masthead-height            : 70px;
+// /* masthead properties */
+// $masthead-height            : 70px;
 
-/* Sidebar properties */
-$sidebar-screen-min-width   : 1024px;
-$sidebar-link-max-width     : 250px;
+// /* Sidebar properties */
+// $sidebar-screen-min-width   : 1024px;
+// $sidebar-link-max-width     : 250px;
 
 
 
@@ -108,90 +108,182 @@ $sidebar-link-max-width     : 250px;
 // $masthead-link-color        : $primary-color;
 // $masthead-link-color-hover  : mix(#000, $primary-color, 25%);
 
+
+// /*
+//    Breakpoints
+//    ========================================================================== */
+
+// @include breakpoint-set("to ems", true);
+// /*
+// $small                      : 400px;
+// $medium                     : 500px;
+// $medium-wide                : 550px;
+// $large                      : 1200px;
+// $x-large                    : 1800px;
+// */
+
+// $small                      : 600px !default;
+// $medium                     : 768px !default;
+// $medium-wide                : 900px !default;
+// $large                      : 925px !default;
+// $x-large                    : 1280px !default;
+
+// /*
+//    Grid
+//    ========================================================================== */
+
+// $right-sidebar-width-narrow : 0px;
+// $right-sidebar-width        : 0px;
+// $right-sidebar-width-wide   : 0px;
+
+// $susy: (
+//   columns: 12,
+//   column-width: 120px,
+//   gutters: 1/4,
+//   math: fluid,
+//   output: float,
+//   gutter-position: after,
+//   container: $large,
+//   global-box-sizing: border-box,
+//   // debug: (
+//   //   image: show,
+//   //   color: blue,
+//   //   output: overlay,
+//   //   toggle: top right,
+//   // ),
+// );
+
+
+// /*
+//    Other
+//    ========================================================================== */
+
+// $border-radius              : 4px;
+// $box-shadow                 : 0 1px 1px rgba(0, 0, 0, 0.125);
+// $navicon-width              : 28px;
+// $navicon-height             : 4px;
+// $global-transition          : all 0.2s ease-in-out;
+
+
+/* ==========================================================================
+   Variables
+   ========================================================================== */
+
 /*
-Colors for Dark Theme
+Typography
 ========================================================================== */
 
-$gray: #7a8288;
-$dark-gray: #303030; // Darker gray for text and other elements
-$darker-gray: #202020; // Even darker gray for darker elements
-$light-gray: #505050; // Light gray for less emphasized items
-$lighter-gray: #707070; // Lightest gray for borders or slight contrasts
+   $doc-font-size              : 16px;
+
+   /* Paragraph indentation */
+   $paragraph-indent           : false; // true, false (default)
+   $indent-var                 : 1.3em;
    
-$body-color: #121212; // Dark background for the body
-$background-color: #121212; // Same dark color for general backgrounds
-$code-background-color: #282828; // Darker background for code blocks
-$code-background-color-dark: $light-gray; // Adjusted for dark theme but slightly lighter
-$text-color: #CCCCCC; // Light color for text for readability on dark backgrounds
-$border-color: $lighter-gray; // Subtle borders in a dark theme
+   /* System typefaces */
+   $serif                      : Georgia, Times, serif;
+   $sans-serif                 : -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+   $monospace                  : Monaco, Consolas, "Lucida Console", monospace;
    
-$primary-color: #9AA3AC; // Slightly lighter primary color for visibility
-$success-color: #62c462; // Success color (can adjust brightness as needed)
-$warning-color: #f89406; // Warning color
-$danger-color: #ee5f5b; // Danger color
-$info-color: #52adc8; // Information color
+   /* Sans serif typefaces */
+   $sans-serif-narrow          : $sans-serif;
+   $helvetica                  : Helvetica, "Helvetica Neue", Arial, sans-serif;
    
-$link-color: $info-color; // Links use the information color
-$link-color-hover: darken($link-color, 15%); // Darken on hover for a subtle effect
-$link-color-visited: lighten($link-color, 10%); // Lighten for visited links
+   /* Serif typefaces */
+   $georgia                    : Georgia, serif;
+   $times                      : Times, serif;
+   $bodoni                     : "Bodoni MT", serif;
+   $calisto                    : "Calisto MT", serif;
+   $garamond                   : Garamond, serif;
    
-$masthead-link-color: $primary-color; // Primary color for masthead links
-$masthead-link-color-hover: darken($primary-color, 15%); // Darken on hover
+   $global-font-family         : $sans-serif;
+   $header-font-family         : $sans-serif;
+   $caption-font-family        : $serif;
    
-
-
-
-/*
-   Breakpoints
-   ========================================================================== */
-
-@include breakpoint-set("to ems", true);
-/*
-$small                      : 400px;
-$medium                     : 500px;
-$medium-wide                : 550px;
-$large                      : 1200px;
-$x-large                    : 1800px;
-*/
-
-$small                      : 600px !default;
-$medium                     : 768px !default;
-$medium-wide                : 900px !default;
-$large                      : 925px !default;
-$x-large                    : 1280px !default;
-
-/*
-   Grid
-   ========================================================================== */
-
-$right-sidebar-width-narrow : 0px;
-$right-sidebar-width        : 0px;
-$right-sidebar-width-wide   : 0px;
-
-$susy: (
-  columns: 12,
-  column-width: 120px,
-  gutters: 1/4,
-  math: fluid,
-  output: float,
-  gutter-position: after,
-  container: $large,
-  global-box-sizing: border-box,
-  // debug: (
-  //   image: show,
-  //   color: blue,
-  //   output: overlay,
-  //   toggle: top right,
-  // ),
-);
-
-
-/*
-   Other
-   ========================================================================== */
-
-$border-radius              : 4px;
-$box-shadow                 : 0 1px 1px rgba(0, 0, 0, 0.125);
-$navicon-width              : 28px;
-$navicon-height             : 4px;
-$global-transition          : all 0.2s ease-in-out;
+   /* Type scale */
+   $type-size-1                : 2.441em;  // ~39.056px
+   $type-size-2                : 1.953em;  // ~31.248px
+   $type-size-3                : 1.563em;  // ~25.008px
+   $type-size-4                : 1.25em;   // ~20px
+   $type-size-5                : 1em;      // ~16px
+   $type-size-6                : 0.75em;   // ~12px
+   $type-size-7                : 0.6875em; // ~11px
+   $type-size-8                : 0.625em;  // ~10px
+   
+   /* Masthead properties */
+   $masthead-height            : 70px;
+   
+   /* Sidebar properties */
+   $sidebar-screen-min-width   : 1024px;
+   $sidebar-link-max-width     : 250px;
+   
+   /*
+      Dark Theme Colors
+      ========================================================================== */
+   
+   $gray                       : #7a8288;
+   $dark-gray                  : #303030; // Darker gray for text and other elements
+   $darker-gray                : #202020; // Even darker gray for darker elements
+   $light-gray                 : #505050; // Light gray for less emphasized items
+   $lighter-gray               : #707070; // Lightest gray for borders or slight contrasts
+   
+   $body-color                 : #121212; // Dark background for the body
+   $background-color           : #121212; // Same dark color for general backgrounds
+   $code-background-color      : #282828; // Darker background for code blocks
+   $code-background-color-dark : $light-gray; // Adjusted for dark theme but slightly lighter
+   $text-color                 : #CCCCCC; // Light color for text for readability on dark backgrounds
+   $border-color               : $lighter-gray; // Subtle borders in a dark theme
+   
+   $primary-color              : #9AA3AC; // Slightly lighter primary color for visibility
+   $success-color              : #62c462; // Success color (can adjust brightness as needed)
+   $warning-color              : #f89406; // Warning color
+   $danger-color               : #ee5f5b; // Danger color
+   $info-color                 : #52adc8; // Information color
+   
+   /* Link colors */
+   $link-color                 : $info-color; // Links use the information color
+   $link-color-hover           : darken($link-color, 15%); // Darken on hover for a subtle effect
+   $link-color-visited         : lighten($link-color, 10%); // Lighten for visited links
+   
+   $masthead-link-color        : $primary-color; // Primary color for masthead links
+   $masthead-link-color-hover  : darken($primary-color, 15%); // Darken on hover
+   
+   /*
+      Breakpoints
+      ========================================================================== */
+   
+   @include breakpoint-set("to ems", true);
+   $small                      : 600px !default;
+   $medium                     : 768px !default;
+   $medium-wide                : 900px !default;
+   $large                      : 925px !default;
+   $x-large                    : 1280px !default;
+   
+   /*
+      Grid
+      ========================================================================== */
+   
+   $right-sidebar-width-narrow : 0px;
+   $right-sidebar-width        : 0px;
+   $right-sidebar-width-wide   : 0px;
+   
+   $susy: (
+     columns: 12,
+     column-width: 120px,
+     gutters: 1/4,
+     math: fluid,
+     output: float,
+     gutter-position: after,
+     container: $large,
+     global-box-sizing: border-box,
+   );
+   
+   /*
+      Other
+      ========================================================================== */
+   
+   $border-radius              : 4px;
+   $box-shadow                 : 0 1px 1px rgba(0, 0, 0, 0.125);
+   $navicon-width              : 28px;
+   $navicon-height             : 4px;
+   $global-transition          : all 0.2s ease-in-out;
+   
