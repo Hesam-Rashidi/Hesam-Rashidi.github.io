@@ -1,10 +1,10 @@
 ---
 title: "Bayesian Modeling of Labor Earnings in Construction"
 collection: publications
-permalink: /publication/TrafficSafety
-excerpt: #
-date: #
-venue: #
+permalink: /publication/2009-10-01-paper-title-number-1
+excerpt: 'This paper is about the number 1. The number 2 is left for future work.'
+date: 2009-10-01
+venue: 'Journal 1'
 paperurl: 'https://doi.org/10.1016/j.iatssr.2022.03.004'
 citation: 'Rashidi, M.H., Keshavarz, S., Pazari, P., Safahieh, N. and Samimi, A., 2022. Modeling the accuracy of traffic crash prediction models. IATSS research, 46(3), pp.345-352.'
 ---
