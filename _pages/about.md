@@ -7,4 +7,6 @@ redirect_from:
   - /about.html
 ---
 
-Hey! I am a PhD student in Transportaion Engineering at University of Toronto, co-supervised by Prof. [Matthew Roorda](https://civmin.utoronto.ca/home/about-us/directory/professors/matthew-roorda/) and Prof. [Mehdi Nourinejad](https://interactive-or.com/team). My research interests include fairness in the supply chain, combinatorial optimization, and tactical planning in last-mile deliveries. Outside of my research, you'll find me star-gazing or practicing martial arts.
+Hello there! I am a PhD student in Transportation Engineering at the University of Toronto. My Prof. [Matthew Roorda](https://civmin.utoronto.ca/home/about-us/directory/professors/matthew-roorda/) and Prof. [Mehdi Nourinejad](https://interactive-or.com/team). My research focuses on fairness in the supply chain, combinatorial optimization, and tactical planning in last-mile deliveries. Before starting my PhD, I completed a BSc in Civil and Environmental Engineering from Sharif University of Technology. When I'm not working on my research, you'll find me either star-gazing or practicing martial arts. 
+
+hesam (dot) rashidi [@] mail (dot) utoronto (dot) ca
