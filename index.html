@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hesam Rashidi - Home</title>
+  <meta name="description" content="Hesam Rashidi — PhD candidate in Transportation Engineering. Human‑centred last‑mile logistics, combinatorial optimization, and AI for operations." />
+  <meta property="og:title" content="Hesam Rashidi — Portfolio" />
+  <meta property="og:description" content="Human‑centred last‑mile logistics, combinatorial optimization, and AI for operations." />
+  <meta property="og:type" content="website" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" type="image/png" href="./assets/logo.png" />
+  <link rel="apple-touch-icon" href="./assets/logo.png" />
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <script src="./assets/js/theme.js" defer></script>
+  <script src="./assets/js/header.js" defer></script>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo">
+            <img src="./assets/logo.png" alt="Hesam Rashidi Logo" width="70" height="70">
+          </div>
+          <div class="header-info">
+            <h1 class="name">Hesam Rashidi</h1>
+            <a href="./assets/resume.pdf" class="resume-link" rel="noopener">Resume</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section class="hero" id="home">
+      <div>
+        <h1>Hi, I'm Hesam!</h1>
+        <p class="lead">PhD candidate, Transportation Engineering, University of Toronto</p>
+        
+        <div class="bio">
+          <p>My research focuses on treating algorithmic biases in the supply chain, combinatorial optimization, and tactical planning in last-mile deliveries.</p>
+          <p>Before starting my PhD, I completed a BSc in Civil and Environmental Engineering from Sharif University of Technology. When I'm not working on my research, you'll find me either star-gazing or practicing martial arts.</p>
+          <p class="email">hesam (dot) rashidi [@] mail (dot) utoronto (dot) ca</p>
+        </div>
+
+        <div class="links">
+          <a href="https://www.linkedin.com/in/hesamrashidi/" class="link" rel="noreferrer noopener">LinkedIn</a>
+          <a href="https://github.com/hesam-rashidi" class="link" rel="noreferrer noopener">GitHub</a>
+          <a href="https://scholar.google.com/citations?hl=en&user=y9SznuYAAAAJ&view_op=list_works" class="link" rel="noreferrer noopener">Google Scholar</a>
+          <a href="#playground" class="link">Playground</a>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="grid cols-1">
+    
+        <!-- 1) Human-Centred Last-Mile Routing -->
+        <article class="card pad">
+          <h3>Human-Centred Last-Mile Routing (with Purolator Inc.)</h3>
+          <p class="project-desc">
+            A routing AI tool that recommends practical visit orders to novice couriers in the fleet.
+          </p>
+          <div class="row">
+            <span class="chip">VRP/TSP</span><span class="chip">Heuristics</span>
+            <span class="chip">GNN</span><span class="chip">Human-Centred AI</span>
+          </div>
+        </article>
+
+
+        <!-- 5) AML Outlier Detector (Scotiabank case) -->
+        <article class="card pad">
+          <h3><a href="https://civmin.utoronto.ca/first-place-at-u-of-t-imi-big-data-and-artificial-intelligence-competition/" class="project-link" rel="noreferrer noopener">AML Outlier Detector (Scotiabank)</a></h3>
+          <p class="project-desc">
+            Anomaly-scoring pipeline for suspicious transaction detection as part of Scotiabank's AI competition.
+          </p>
+          <div class="row">
+            <span class="chip">Anomaly Detection</span><span class="chip">Finance</span><span class="chip">Competition</span>
+          </div>
+        </article>
+    
+        <!-- 2) Adaptive Parking Pricing -->
+        <article class="card pad">
+          <h3><a href="https://static1.squarespace.com/static/59d69bcfa8b2b053c91fe23e/t/67f6aa381d9877338b4a131c/1744218690894/1732151296320%2B%281%29.pdf" class="project-link" rel="noreferrer noopener">Adaptive Parking Pricing Using ML</a></h3>
+          <p class="project-desc">
+            Production-level dynamic parking pricing for the City of Toronto. Learns a mapping from real-time meter transactions
+            to occupancy and adjusts rates by location/time to balance availability and turnover.
+          </p>
+          <div class="row">
+            <span class="chip">ML</span><span class="chip">Dynamic Pricing</span><span class="chip">Smart City</span>
+          </div>
+        </article>
+    
+        <!-- 3) Winter Maintenance Optimization -->
+        <article class="card pad">
+          <h3><a href="https://interactive-or.net/snowplowpro" class="project-link" rel="noreferrer noopener">Winter Maintenance Optimization Tool</a></h3>
+          <p class="project-desc">
+            Web-based decision support for municipal snow plowing. Runs arc-routing on road networks with service priorities and turn costs,
+            featuring scenario testing, boundary adjustments, and KPI comparisons before deployment.
+          </p>
+          <div class="row">
+            <span class="chip">Arc Routing</span><span class="chip">Optimization</span><span class="chip">Web App</span>
+          </div>
+        </article>
+    
+        <!-- 4) Selective Travel-Time Matrix for TSP -->
+        <article class="card pad">
+          <h3>Selective Travel-Time Matrix for TSP (Google/Mapbox Routes)</h3>
+          <p class="project-desc">
+            Build a traffic-aware cost matrix without issuing O(n²) calls. Query only the edges that are more likely to enter the optimal tour. 
+          </p>
+          <div class="row">
+            <span class="chip">Active Sampling</span><span class="chip">Route APIs</span><span class="chip">TSP</span><span class="chip">Traffic-Aware</span>
+          </div>
+        </article>
+    
+      </div>
+    </section>
+    
+
+    
+
+    <section id="playground">
+      <h2>Optimization Playground</h2>
+      <div class="playground">
+        <canvas id="gameCanvas" width="800" height="380" aria-label="Knapsack optimization game canvas"></canvas>
+        <div class="card panel">
+          <div class="controls">
+            <div class="row"><strong>Goal:</strong> Select items to maximize value while staying within weight capacity.</div>
+            <div class="row">
+              <label for="capacity">Capacity</label>
+              <input id="capacity" type="range" min="50" max="150" step="10" value="100" />
+              <span id="capacityVal" class="value">100</span>
+            </div>
+            <div class="row">
+              <button class="btn primary" id="newBtn">New items</button>
+              <button class="btn" id="solveBtn">AI: Solve (Greedy)</button>
+              <button class="btn" id="clearBtn">Clear selection</button>
+            </div>
+            <div class="grid cols-2">
+              <div class="stat"> <span>AI value</span> <span class="value" id="aiValue">–</span> </div>
+              <div class="stat"> <span>Your value</span> <span class="value" id="userValue">0</span> </div>
+            </div>
+            <div class="stat">
+              <span>Weight used</span> 
+              <span class="value" id="weightDisplay">0/100</span>
+            </div>
+            <p class="hint">Tips: Look at value/weight ratios (R). Shortcuts: <span class="kbd">C</span> clear, <span class="kbd">N</span> new, <span class="kbd">S</span> solve.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <footer class="container">
+    <div class="row" style="justify-content:space-between; align-items:center;">
+      <small>© <span id="year"></span> Hesam Rashidi</small>
+      <small class="muted">Built with vanilla JS</small>
+    </div>
+  </footer>
+  <script src="./assets/js/bg.js" defer></script>
+  <script src="./assets/js/knapsack.js" defer></script>
+</body>
+</html>
