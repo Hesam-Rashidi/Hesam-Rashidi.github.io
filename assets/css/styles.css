@@ -313,6 +313,34 @@ section h2 {
   margin-top: 2rem;
 }
 
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab {
+  padding: 0.5rem 0.9rem;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  border-top-left-radius: var(--radius-sm);
+  border-top-right-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.tab:hover { color: var(--text); }
+
+.tab.active {
+  color: var(--text);
+  border-color: var(--border);
+  border-bottom-color: var(--bg);
+  background: var(--card);
+}
+
+.hidden { display: none !important; }
+
 @media (min-width: 1024px) { 
   .playground { 
     grid-template-columns: 1.2fr 0.8fr; 
@@ -330,6 +358,30 @@ section h2 {
   border-radius: var(--radius);
   margin: 0 auto;
   touch-action: manipulation; /* Improve touch responsiveness */
+}
+
+#pathCanvas {
+  width: 100%;
+  max-width: 800px;
+  height: 380px;
+  display: block;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 0 auto;
+  touch-action: manipulation;
+}
+
+#nimCanvas {
+  width: 100%;
+  max-width: 800px;
+  height: 380px;
+  display: block;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 0 auto;
+  touch-action: manipulation;
 }
 
 .controls { 
@@ -444,6 +496,14 @@ footer {
     height: 320px; /* Slightly larger on mobile for better usability */
     min-height: 280px; /* Ensure minimum height */
   }
+  #pathCanvas {
+    height: 320px;
+    min-height: 280px;
+  }
+  #nimCanvas {
+    height: 320px;
+    min-height: 280px;
+  }
   
   .controls {
     gap: 0.8rem;
@@ -489,6 +549,14 @@ footer {
   
   #gameCanvas {
     height: 300px; /* Optimized for very small screens */
+    min-height: 260px;
+  }
+  #pathCanvas {
+    height: 300px;
+    min-height: 260px;
+  }
+  #nimCanvas {
+    height: 300px;
     min-height: 260px;
   }
   

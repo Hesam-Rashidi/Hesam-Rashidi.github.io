@@ -127,30 +127,57 @@
 
     <section id="playground">
       <h2>Optimization Playground</h2>
+      <div class="tabs" role="tablist" aria-label="Playground games">
+        <button class="tab active" role="tab" aria-selected="true" data-tab="path">Shortest Path Race</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="nim">Nim (with a Twist)</button>
+      </div>
       <div class="playground">
-        <canvas id="gameCanvas" width="800" height="380" aria-label="Knapsack optimization game canvas"></canvas>
-        <div class="card panel">
+        <canvas id="pathCanvas" class="game-view" data-game="path" width="800" height="380" aria-label="Shortest Path Race canvas"></canvas>
+        <canvas id="nimCanvas" class="game-view hidden" data-game="nim" width="800" height="380" aria-label="Nim with a Twist game canvas"></canvas>
+
+        <div class="card panel game-controls" data-game="path">
           <div class="controls">
-            <div class="row"><strong>Goal:</strong> Select items to maximize value while staying within weight capacity.</div>
+            <div class="row"><strong>Goal:</strong> You vs AI. Start at node 1 and reach the goal with the smallest total edge cost. Tap adjacent nodes to extend your route. Fog hides some edge weights: use Draw card to reveal random hidden edges. Reach the goal, then Commit route to reveal the optimal path and compare your cost to AI.</div>
             <div class="row">
-              <label for="capacity">Capacity</label>
-              <input id="capacity" type="range" min="50" max="150" step="10" value="100" />
-              <span id="capacityVal" class="value">100</span>
-            </div>
-            <div class="row">
-              <button class="btn primary" id="newBtn">New items</button>
-              <button class="btn" id="solveBtn">AI: Solve (Greedy)</button>
-              <button class="btn" id="clearBtn">Clear selection</button>
+              <button class="btn primary" id="spNewBtn">New map</button>
+              <button class="btn" id="spDrawBtn">Draw card</button>
+              <button class="btn" id="spCommitBtn">Commit route</button>
+              <button class="btn" id="spFogBtn">Toggle fog</button>
+              <button class="btn" id="spSolveBtn">AI: Solve</button>
             </div>
             <div class="grid cols-2">
-              <div class="stat"> <span>AI value</span> <span class="value" id="aiValue">–</span> </div>
-              <div class="stat"> <span>Your value</span> <span class="value" id="userValue">0</span> </div>
+              <div class="stat"> <span>Cards left</span> <span class="value" id="spCards">5</span> </div>
+              <div class="stat"> <span>Your cost</span> <span class="value" id="spUserCost">0</span> </div>
             </div>
-            <div class="stat">
-              <span>Weight used</span> 
-              <span class="value" id="weightDisplay">0/100</span>
+            <div class="stat"> <span>AI cost</span> <span class="value" id="spAICost">–</span> </div>
+            <p class="hint">Basics: (1) Tap adjacent nodes to build a path from Start to Goal. (2) Draw card reveals a few hidden edge weights. (3) Commit only after you’ve reached the goal to lock your route and reveal the optimal (Dijkstra) path and cost. (4) AI: Solve shows the optimal route without committing. You can backtrack by tapping an earlier node.</p>
+          </div>
+        </div>
+
+        <div class="card panel game-controls hidden" data-game="nim">
+          <div class="controls">
+            <div class="row"><strong>Goal:</strong> You vs AI. Take the last stone. On your turn, tap a pile, choose how many to remove from that one pile, then Apply. <strong>Twist:</strong> once per player, you can pick two piles and the game will shift a few stones from the larger to the smaller (subject to capacity), letting you change the position before continuing.</div>
+            <div class="grid cols-2">
+              <div class="stat"> <span>Turn</span> <span class="value" id="nimTurn">You</span> </div>
+              <div class="stat"> <span>Your rearranges</span> <span class="value" id="nimUserRearr">1</span> </div>
             </div>
-            <p class="hint">Tips: Look at value/weight ratios (R). Shortcuts: <span class="kbd">C</span> clear, <span class="kbd">N</span> new, <span class="kbd">S</span> solve.</p>
+            <div class="grid cols-2">
+              <div class="stat"> <span>AI rearranges</span> <span class="value" id="nimAIRearr">1</span> </div>
+              <div class="stat"> <span>Selected pile</span> <span class="value" id="nimSelPile">–</span> </div>
+            </div>
+            <div class="row">
+              <label for="nimRemove">Remove</label>
+              <input id="nimRemove" type="range" min="1" max="5" value="1" />
+              <span id="nimRemoveVal" class="value">1</span>
+              <button class="btn" id="nimRemoveBtn">Apply</button>
+            </div>
+            <div class="row">
+              <button class="btn primary" id="nimNewBtn">New game</button>
+              <button class="btn" id="nimRearrangeBtn">Rearrange (pick 2)</button>
+              <button class="btn" id="nimCommitBtn" disabled>Commit rearrangement</button>
+              <button class="btn" id="nimCancelBtn" disabled>Cancel</button>
+            </div>
+            <p class="hint">You play against the computer. Remove stones from a single pile on your turn. Once per side, press Rearrange and tap two piles to shift a small number of stones from the larger to the smaller, then Commit. Win by taking the last stone.</p>
           </div>
         </div>
       </div>
@@ -166,6 +193,8 @@
     </div>
   </footer>
   <script src="./assets/js/bg.js" defer></script>
-  <script src="./assets/js/knapsack.js" defer></script>
+  <script src="./assets/js/shortestpath.js" defer></script>
+  <script src="./assets/js/tabs.js" defer></script>
+  <script src="./assets/js/nim.js" defer></script>
 </body>
 </html>
