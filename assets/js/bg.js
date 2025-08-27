@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    dpr = Math.min(window.devicePixelRatio || 1, 3);
     const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     width = vw; height = vh;
@@ -31,14 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function initLayers() {
     // 3 parallax layers: far, mid, near
-    const densities = [0.0008, 0.0012, 0.0016];
+    const densities = [0.0010, 0.0015, 0.0020];
     const speeds = [0.15, 0.3, 0.6];
     layers = densities.map((density, i) => {
       const count = Math.floor(width * height * density);
       const stars = new Array(count).fill(0).map(() => ({
         x: Math.random() * width,
         y: Math.random() * (height * 2), // extend vertically for scroll parallax
-        r: 0.5 + Math.random() * (i === 2 ? 1.2 : 0.9),
+        r: 0.4 + Math.random() * (i === 2 ? 1.0 : 0.7),
         tw: Math.random() * Math.PI * 2,
         tSpeed: 0.4 + Math.random() * 0.6,
         bright: Math.random() > 0.85
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
       for(const s of layer.stars) {
         // vertical parallax shift with scroll
         const y = (s.y + baseY * layer.speed) % (height * 2);
-        const alpha = 0.4 + 0.6 * Math.abs(Math.sin(s.tw + t * 0.001 * s.tSpeed));
+        const alpha = 0.5 + 0.5 * Math.abs(Math.sin(s.tw + t * 0.0012 * s.tSpeed));
         ctx.beginPath();
         ctx.fillStyle = s.bright ? palette.starBright : palette.starDim;
         ctx.globalAlpha = alpha;
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const grad = ctx.createLinearGradient(s.x, s.y, tx, ty);
       grad.addColorStop(0, palette.starBright);
       grad.addColorStop(1, palette.tail);
-      ctx.strokeStyle = grad; ctx.lineWidth = 2;
+      ctx.strokeStyle = grad; ctx.lineWidth = 1.5; ctx.lineCap = 'round';
       ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(tx, ty); ctx.stroke();
       ctx.fillStyle = palette.starBright;
       ctx.beginPath(); ctx.arc(s.x, s.y, 1.6, 0, Math.PI*2); ctx.fill();
