@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let rearrangeMode = false;
   let rearrSelected = []; // two pile indices
   let rearrSplit = 0; // how many stones to move from A to B (signed)
+  let lastMover = null; // 'You' or 'AI' to ensure accurate winner display
 
   // UI elements
   const turnEl = document.getElementById('nimTurn');
@@ -91,8 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Remove overlay text to reduce confusion; UI buttons indicate state
 
     if(isGameOver()){
-      const winner = yourTurn ? 'AI' : 'You'; // if it's your turn and no stones, AI took last
-      const label = `${winner} win!`;
+      // Winner is the last mover; fallback to current turn if not set
+      const winner = lastMover || (yourTurn ? 'You' : 'AI');
+      const label = winner === 'AI' 
+      ? "AI wins... you just gave SkyNet its opening move" 
+      : "You win! The AI is now sulking in binary.";
       const padding = 12; ctx.font = '600 16px ui-sans-serif, system-ui';
       const w = ctx.measureText(label).width;
       const x = (rect.width - w)/2 - padding; const y = rect.height/2 - 20; const bw = w+padding*2; const bh = 40;
@@ -143,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(amt <= 0) return;
     piles[selectedPile] -= amt;
     if(piles[selectedPile] === 0) selectedPile = -1;
+    lastMover = 'You';
     endTurn();
   }
 
@@ -156,48 +161,117 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function aiMove(){
     if(isGameOver()) return;
-    // Basic nim strategy with occasional twist use to try for zero nim-sum
-    const nimSum = piles.reduce((a, b) => a ^ b, 0);
-    if(nimSum !== 0){
-      // winning move exists: reduce a pile to make nim-sum 0
-      for(let i = 0; i < piles.length; i++){
-        const target = piles[i] ^ nimSum;
-        if(target < piles[i]){
-          const remove = Math.min(MAX_REMOVE_PER_TURN, piles[i] - target);
-          piles[i] -= remove;
-          selectedPile = -1;
-          endTurn();
-          return;
+    // Stronger AI: prioritize winning moves; use rearrangement to create a within-limit winning move
+
+    function computeNimSum(arr){ return arr.reduce((a, b) => a ^ b, 0); }
+
+    function findImmediateWinningRemoval(arr){
+      const s = computeNimSum(arr);
+      if(s === 0) return null;
+      for(let i = 0; i < arr.length; i++){
+        const target = arr[i] ^ s;
+        if(target < arr[i]){
+          const need = arr[i] - target;
+          if(need <= MAX_REMOVE_PER_TURN) return { pileIndex: i, remove: need };
         }
       }
+      return null;
     }
-    // If losing (nimSum == 0) and has rearrange, try to rearrange two piles to non-zero nim-sum under capacity
-    if(nimSum === 0 && aiRearrangesLeft > 0){
-      for(let a = 0; a < piles.length; a++){
-        for(let b = a+1; b < piles.length; b++){
-          // try moving k stones from a to b, keeping within capacity
-          for(let k = -3; k <= 3; k++){
-            const na = piles[a] - k, nb = piles[b] + k;
-            if(na >= 0 && nb >= 0 && na <= PILE_CAPACITY && nb <= PILE_CAPACITY){
-              const test = piles.slice(); test[a] = na; test[b] = nb;
-              if((test.reduce((x,y)=>x^y,0)) !== 0){
-                piles = test; aiRearrangesLeft -= 1; updateHUD(); draw();
-                // remove 1 from best pile after rearrangement
-                const idx = test.indexOf(Math.max(...test));
-                piles[idx] = Math.max(0, piles[idx] - 1);
-                endTurn();
-                return;
+
+    function tryRearrangeForImmediateWin(arr){
+      if(aiRearrangesLeft <= 0) return null;
+      const MAX_SHIFT = 6; // search window
+      for(let a = 0; a < arr.length; a++){
+        for(let b = a + 1; b < arr.length; b++){
+          for(let k = -MAX_SHIFT; k <= MAX_SHIFT; k++){
+            const na = arr[a] - k, nb = arr[b] + k;
+            if(na < 0 || nb < 0 || na > PILE_CAPACITY || nb > PILE_CAPACITY) continue;
+            const test = arr.slice(); test[a] = na; test[b] = nb;
+            const win = findImmediateWinningRemoval(test);
+            if(win){
+              return { a, b, k, win };
+            }
+          }
+        }
+      }
+      return null;
+    }
+
+    function tryRearrangeForProgress(arr){
+      if(aiRearrangesLeft <= 0) return null;
+      const MAX_SHIFT = 6;
+      let best = null;
+      let bestGap = Infinity;
+      for(let a = 0; a < arr.length; a++){
+        for(let b = a + 1; b < arr.length; b++){
+          for(let k = -MAX_SHIFT; k <= MAX_SHIFT; k++){
+            const na = arr[a] - k, nb = arr[b] + k;
+            if(na < 0 || nb < 0 || na > PILE_CAPACITY || nb > PILE_CAPACITY) continue;
+            const test = arr.slice(); test[a] = na; test[b] = nb;
+            const s = computeNimSum(test);
+            if(s === 0) continue;
+            // Compute how far we are from an immediate winning removal after rearrangement
+            for(let i = 0; i < test.length; i++){
+              const target = test[i] ^ s;
+              if(target < test[i]){
+                const need = test[i] - target;
+                const gap = Math.max(0, need - MAX_REMOVE_PER_TURN);
+                if(gap < bestGap){
+                  bestGap = gap;
+                  best = { a, b, k, followIndex: i, need };
+                  if(bestGap === 0) return best; // can't get better
+                }
               }
             }
           }
         }
       }
+      return best;
     }
-    // fallback: remove min(1..MAX_REMOVE_PER_TURN) from largest pile
+
+    // 1) Immediate winning removal
+    const immediate = findImmediateWinningRemoval(piles);
+    if(immediate){
+      piles[immediate.pileIndex] -= immediate.remove;
+      selectedPile = -1;
+      lastMover = 'AI';
+      endTurn();
+      return;
+    }
+
+    // 2) Rearrange to create an immediate winning removal within limit, then take it
+    const combo = tryRearrangeForImmediateWin(piles);
+    if(combo){
+      const { a, b, k, win } = combo;
+      const na = piles[a] - k, nb = piles[b] + k;
+      piles[a] = na; piles[b] = nb; aiRearrangesLeft -= 1; updateHUD(); draw();
+      piles[win.pileIndex] -= win.remove;
+      selectedPile = -1;
+      lastMover = 'AI';
+      endTurn();
+      return;
+    }
+
+    // 3) If losing (nimSum == 0) or immediate not possible, rearrange to maximize progress toward a winning move
+    const progress = tryRearrangeForProgress(piles);
+    if(progress){
+      const { a, b, k, followIndex, need } = progress;
+      const na = piles[a] - k, nb = piles[b] + k;
+      piles[a] = na; piles[b] = nb; aiRearrangesLeft -= 1; updateHUD(); draw();
+      const removeAmt = Math.min(MAX_REMOVE_PER_TURN, need);
+      piles[followIndex] = Math.max(0, piles[followIndex] - removeAmt);
+      selectedPile = -1;
+      lastMover = 'AI';
+      endTurn();
+      return;
+    }
+
+    // 4) Fallback: remove aggressively from the largest pile
     let idx = 0; for(let i = 1; i < piles.length; i++) if(piles[i] > piles[idx]) idx = i;
-    const amt = Math.min(MAX_REMOVE_PER_TURN, Math.max(1, Math.ceil(piles[idx] / 3)));
+    const amt = Math.min(MAX_REMOVE_PER_TURN, Math.max(1, Math.ceil(piles[idx] / 2)));
     piles[idx] = Math.max(0, piles[idx] - amt);
     selectedPile = -1;
+    lastMover = 'AI';
     endTurn();
   }
 
