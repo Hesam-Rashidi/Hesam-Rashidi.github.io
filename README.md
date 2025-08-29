@@ -8,7 +8,6 @@ A clean, responsive portfolio website template perfect for showcasing research w
 - **Interactive Playground**: Optimization games including Shortest Path Race and Nim with a Twist
 - **Responsive**: Works seamlessly on desktop, tablet, and mobile devices
 - **Performance Optimized**: Vanilla JavaScript, no frameworks or dependencies
-- **GitHub Pages Ready**: Hosted directly from this repository
 
 ## Interactive Playground
 
@@ -58,39 +57,6 @@ portfolio-website/
 └── README.md              # This file
 ```
 
-## Technologies Used
-
-- **HTML5**: Semantic structure and accessibility
-- **CSS3**: Modern styling with CSS Grid, Flexbox, and custom properties
-- **Vanilla JavaScript**: Interactive functionality without dependencies
-- **Canvas API**: Real-time graphics for optimization games
-- **Inter Font**: Clean, professional typography via Google Fonts
-
-## Mobile Responsive
-
-The site is fully responsive with:
-- Flexible grid layouts
-- Touch-friendly interactive elements
-- Optimized canvas rendering for mobile devices
-- Readable typography across all screen sizes
-
-## SEO & Performance
-
-- Semantic HTML structure
-- Meta tags for social media sharing
-- Optimized images and assets
-- Fast loading with minimal dependencies
-- Accessibility considerations
-
-## Game Features
-
-The interactive playground includes:
-- **Dynamic problem generation** with randomized scenarios
-- **Visual feedback** with intuitive color coding and animations
-- **AI comparison** to test your optimization skills
-- **Touch support** for mobile devices
-- **Keyboard shortcuts** for power users
-
 ## Local Development
 
 To run locally:
@@ -130,27 +96,15 @@ This template is designed to be easily customizable:
    - Update project descriptions, links, and tags
    - Add or remove project cards as needed
 
-3. **Customize styling** (optional):
-   - Modify colors and fonts in `assets/css/styles.css`
-   - Update the color scheme variables at the top of the file
+3. **Customize styling**:
+   - Modify colours and fonts in `assets/css/styles.css`
+   - Update the colour scheme variables at the top of the file
 
 4. **Update metadata**:
    - Modify page title and meta descriptions in `index.html`
    - Update the LICENSE file with your name and year
 
-### Keep the Games (Recommended)
-The interactive optimization games are a unique feature that demonstrates algorithmic thinking and problem-solving skills. They work well for:
-- Computer Science portfolios
-- Engineering portfolios  
-- Research-focused portfolios
-- Anyone wanting to showcase analytical thinking
-
-If you don't need the games, you can remove the entire "Optimization Playground" section from `index.html` and delete the related JavaScript files.
 
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
-
----
-
-**Built with vanilla JavaScript - no frameworks, fast loading, easy to customize**
