@@ -9,7 +9,6 @@ A clean, responsive portfolio website template perfect for showcasing research w
 - **Responsive**: Works seamlessly on desktop, tablet, and mobile devices
 - **Performance Optimized**: Vanilla JavaScript, no frameworks or dependencies
 - **GitHub Pages Ready**: Hosted directly from this repository
-- **Fork Friendly**: Easy to customize and make your own
 
 ## Interactive Playground
 
@@ -110,9 +109,9 @@ To run locally:
    php -S localhost:8000
    ```
 
-## How to Fork and Customize
+## How to Customize
 
-This template is designed to be easily forkable and customizable:
+This template is designed to be easily customizable:
 
 ### Quick Start
 1. **Fork this repository** to your GitHub account
