@@ -1,24 +1,25 @@
-# Hesam Rashidi - Portfolio Website
+# Portfolio Website Template
 
-A clean, responsive portfolio website showcasing research work in transportation engineering, combinatorial optimization, and AI for operations.
+A clean, responsive portfolio website template perfect for showcasing research work, projects, and interactive demonstrations. Built with vanilla JavaScript and optimized for GitHub Pages hosting.
 
-## 🌟 Features
+## Features
 
-- **Modern Design**: Clean, professional layout with dark theme
-- **Interactive Game**: Knapsack optimization challenge with AI comparison
+- **Modern Design**: Clean, professional layout with automatic dark/light theme
+- **Interactive Playground**: Optimization games including Shortest Path Race and Nim with a Twist
 - **Responsive**: Works seamlessly on desktop, tablet, and mobile devices
-- **Performance Optimized**: Vanilla JavaScript, no frameworks
+- **Performance Optimized**: Vanilla JavaScript, no frameworks or dependencies
 - **GitHub Pages Ready**: Hosted directly from this repository
+- **Fork Friendly**: Easy to customize and make your own
 
-## 🎮 Interactive Playground
+## Interactive Playground
 
-The site includes a **Knapsack Problem** optimization game where visitors can:
-- Select items to maximize value within weight constraints
-- Compare their solution against an AI greedy algorithm
-- Learn about combinatorial optimization interactively
-- See visual feedback with color-coded value/weight ratios
+The site includes interactive optimization games where visitors can:
+- **Shortest Path Race**: Compete against AI to find optimal routes with uncertainty
+- **Nim with a Twist**: Play the classic game with a strategic rearrangement option
+- Learn about algorithmic thinking and optimization interactively
+- Experience decision-making under uncertainty
 
-## 🚀 GitHub Pages Setup
+## GitHub Pages Setup
 
 This repository is configured for GitHub Pages hosting:
 
@@ -31,36 +32,42 @@ This repository is configured for GitHub Pages hosting:
 
 2. **Access your site**:
    - Your site will be available at: `https://[username].github.io/[repository-name]`
-   - For example: `https://hesam-rashidi.github.io/PersonalWebpage`
+   - For example: `https://yourusername.github.io/your-portfolio`
 
 3. **Custom Domain** (optional):
    - Add a `CNAME` file with your custom domain
    - Configure DNS settings with your domain provider
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-PersonalWebpage/
+portfolio-website/
 ├── index.html              # Main HTML file
 ├── assets/
 │   ├── css/
 │   │   └── styles.css      # All styles and responsive design
 │   ├── js/
 │   │   ├── theme.js        # Theme management
-│   │   └── knapsack.js     # Interactive optimization game
-│   └── logo.png           # Site logo/favicon
+│   │   ├── header.js       # Header functionality
+│   │   ├── tabs.js         # Tab navigation
+│   │   ├── shortestpath.js # Shortest Path Race game
+│   │   ├── nim.js          # Nim with a Twist game
+│   │   └── bg.js          # Background effects
+│   ├── logo.png           # Site logo/favicon
+│   └── resume.pdf         # Resume/CV file
+├── LICENSE                # MIT license
 └── README.md              # This file
 ```
 
-## 🛠 Technologies Used
+## Technologies Used
 
 - **HTML5**: Semantic structure and accessibility
 - **CSS3**: Modern styling with CSS Grid, Flexbox, and custom properties
 - **Vanilla JavaScript**: Interactive functionality without dependencies
-- **Canvas API**: Real-time graphics for the optimization game
+- **Canvas API**: Real-time graphics for optimization games
 - **Inter Font**: Clean, professional typography via Google Fonts
 
-## 📱 Mobile Responsive
+## Mobile Responsive
 
 The site is fully responsive with:
 - Flexible grid layouts
@@ -68,7 +75,7 @@ The site is fully responsive with:
 - Optimized canvas rendering for mobile devices
 - Readable typography across all screen sizes
 
-## 🎯 SEO & Performance
+## SEO & Performance
 
 - Semantic HTML structure
 - Meta tags for social media sharing
@@ -76,16 +83,16 @@ The site is fully responsive with:
 - Fast loading with minimal dependencies
 - Accessibility considerations
 
-## 📊 Game Features
+## Game Features
 
-The Knapsack Problem game includes:
-- **Dynamic item generation** with randomized values and weights
-- **Visual feedback** with color-coded efficiency ratios
-- **AI comparison** using greedy heuristic algorithm
+The interactive playground includes:
+- **Dynamic problem generation** with randomized scenarios
+- **Visual feedback** with intuitive color coding and animations
+- **AI comparison** to test your optimization skills
 - **Touch support** for mobile devices
 - **Keyboard shortcuts** for power users
 
-## 🔧 Local Development
+## Local Development
 
 To run locally:
 
@@ -103,10 +110,48 @@ To run locally:
    php -S localhost:8000
    ```
 
-## 📄 License
+## How to Fork and Customize
+
+This template is designed to be easily forkable and customizable:
+
+### Quick Start
+1. **Fork this repository** to your GitHub account
+2. **Rename the repository** to `[your-username].github.io` for automatic GitHub Pages hosting
+3. **Enable GitHub Pages** in repository settings (see GitHub Pages Setup section above)
+4. **Customize the content** following the steps below
+
+### Customization Steps
+1. **Update personal information** in `index.html`:
+   - Replace name, title, bio, and contact information
+   - Update social media links
+   - Replace the logo image in `assets/logo.png`
+   - Replace `assets/resume.pdf` with your own resume
+
+2. **Modify the projects section**:
+   - Update project descriptions, links, and tags
+   - Add or remove project cards as needed
+
+3. **Customize styling** (optional):
+   - Modify colors and fonts in `assets/css/styles.css`
+   - Update the color scheme variables at the top of the file
+
+4. **Update metadata**:
+   - Modify page title and meta descriptions in `index.html`
+   - Update the LICENSE file with your name and year
+
+### Keep the Games (Recommended)
+The interactive optimization games are a unique feature that demonstrates algorithmic thinking and problem-solving skills. They work well for:
+- Computer Science portfolios
+- Engineering portfolios  
+- Research-focused portfolios
+- Anyone wanting to showcase analytical thinking
+
+If you don't need the games, you can remove the entire "Optimization Playground" section from `index.html` and delete the related JavaScript files.
+
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-**Built with ❤️ and vanilla JavaScript**
+**Built with vanilla JavaScript - no frameworks, fast loading, easy to customize**
