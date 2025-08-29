@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const GRID_COLS = 3;
   const GRID_ROWS = 3;
   const EDGE_REVEAL_PER_CARD = 4; // number of hidden edges to reveal per card draw
+  const EDGE_MIN_W = 1; // lower bound for hidden edge label and AI risk model
+  const EDGE_MAX_W = 9; // upper bound for hidden edge label and AI risk model
 
   // Game state
   let nodes = [];
@@ -23,11 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let aiCost = null;
 
   // UI elements
-  const spCards = document.getElementById('spCards');
   const spUserCost = document.getElementById('spUserCost');
   const spAICost = document.getElementById('spAICost');
   const btnNew = document.getElementById('spNewBtn');
-  const btnDraw = document.getElementById('spDrawBtn');
   const btnCommit = document.getElementById('spCommitBtn');
   const btnFog = document.getElementById('spFogBtn');
   const btnSolve = document.getElementById('spSolveBtn');
@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cardsLeft = 5; aiPath = []; aiCost = null;
     if(spAICost) spAICost.textContent = '–';
     if(spUserCost) spUserCost.textContent = '0';
-    if(spCards) spCards.textContent = String(cardsLeft);
   }
 
   function layoutNodes() {
@@ -81,11 +80,32 @@ document.addEventListener('DOMContentLoaded', () => {
   function randInt(min, max){ return Math.floor(Math.random() * (max - min + 1)) + min; }
 
   function addEdge(u, v){
-    const w = randInt(1, 9); // small integer weights for quick mental math
+    const w = randInt(EDGE_MIN_W, EDGE_MAX_W); // small integer weights for quick mental math
     const revealed = Math.random() < 0.25; // start with some info
+    const { minW, maxW } = revealed ? { minW: w, maxW: w } : sampleRangeContaining(w);
     const id = edges.length;
-    edges.push({ u, v, w, revealed });
+    edges.push({ u, v, w, revealed, minW, maxW });
     adj[u].push(id); adj[v].push(id);
+  }
+
+  // Pick a fun range length and center it so that it contains w and stays within bounds
+  function sampleRangeContaining(w){
+    // Bias towards mid-sized ranges for variety
+    const possibleLens = [2, 3, 4, 5];
+    const lensWeights = [2, 3, 3, 2];
+    const total = lensWeights.reduce((a,b) => a+b, 0);
+    const r = Math.random() * total;
+    let acc = 0; let chosenLen = possibleLens[0];
+    for(let i = 0; i < possibleLens.length; i++){
+      acc += lensWeights[i];
+      if(r <= acc){ chosenLen = possibleLens[i]; break; }
+    }
+    // Place the range around w with random offset while keeping within bounds
+    const maxStart = Math.min(w, EDGE_MAX_W - chosenLen + 1);
+    const minStart = Math.max(EDGE_MIN_W, w - chosenLen + 1);
+    const start = randInt(minStart, maxStart);
+    const end = start + chosenLen - 1;
+    return { minW: start, maxW: end };
   }
 
   function dijkstra(start, goal){
@@ -104,6 +124,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const e = edges[eid];
         const v = e.u === u ? e.v : e.u;
         const nd = d + e.w;
+        if(nd < dist[v]){ dist[v] = nd; prev[v] = u; pq.push({ node: v, d: nd }); }
+      }
+    }
+    if(!isFinite(dist[goal])) return { path: [], cost: Infinity };
+    const path = [];
+    for(let at = goal; at !== -1; at = prev[at]) path.push(at);
+    path.reverse();
+    return { path, cost: dist[goal] };
+  }
+
+  // Risk-taking AI: for hidden edges, assume optimistic cost (lower bound of range)
+  function dijkstraRisky(start, goal){
+    const dist = Array(NODE_COUNT).fill(Infinity);
+    const prev = Array(NODE_COUNT).fill(-1);
+    dist[start] = 0;
+    const visited = new Set();
+    const pq = [{ node: start, d: 0 }];
+    while(pq.length){
+      pq.sort((a,b) => a.d - b.d);
+      const { node: u, d } = pq.shift();
+      if(visited.has(u)) continue; visited.add(u);
+      if(u === goal) break;
+      for(const eid of adj[u]){
+        const e = edges[eid];
+        const v = e.u === u ? e.v : e.u;
+        const wEff = e.revealed ? e.w : e.minW;
+        const nd = d + wEff;
         if(nd < dist[v]){ dist[v] = nd; prev[v] = u; pq.push({ node: v, d: nd }); }
       }
     }
@@ -175,12 +222,16 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
       ctx.globalAlpha = 1;
 
-      // weight label (shown if revealed or on committed/ai path)
+      // weight label: show actual if revealed/visible; otherwise show per-edge range for masked edges
+      const mx = (a.x + b.x) / 2; const my = (a.y + b.y) / 2;
+      ctx.fillStyle = '#e5e7eb';
+      ctx.font = '12px ui-sans-serif, system-ui';
       if(!fogEnabled || e.revealed || userCommitted || isOnUser){
-        const mx = (a.x + b.x) / 2; const my = (a.y + b.y) / 2;
-        ctx.fillStyle = '#e5e7eb';
-        ctx.font = '12px ui-sans-serif, system-ui';
         ctx.fillText(String(e.w), mx + 6, my - 6);
+      } else {
+        const lo = e.minW ?? EDGE_MIN_W;
+        const hi = e.maxW ?? EDGE_MAX_W;
+        ctx.fillText(`${lo}–${hi}`, mx + 6, my - 6);
       }
     }
 
@@ -202,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // HUD banner when committed
     if(userCommitted){
       const uCost = userCost();
-      const label = (aiCost !== null) ? `Your cost ${uCost}  |  Optimal ${aiCost}` : `Your cost ${uCost}`;
+      const label = (aiCost !== null) ? `Your cost ${uCost}  |  AI cost ${aiCost}` : `Your cost ${uCost}`;
       const padding = 12;
       ctx.font = '600 14px ui-sans-serif, system-ui';
       const textWidth = ctx.measureText(label).width;
@@ -246,62 +297,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const n = nearestNode(x, y);
     if(n === -1) return;
     if(userPath.length && n === userPath[userPath.length-1]) return;
+    // No backtracking allowed
+    if(userPath.includes(n)) return;
+    // Otherwise, extend only to unvisited adjacent node
     if(canExtend(n)){
       userPath.push(n);
       updateHUD();
-      draw();
-    } else {
-      // If clicked an earlier node on the path, allow backtracking
-      const idx = userPath.indexOf(n);
-      if(idx !== -1 && idx < userPath.length - 1){
-        userPath = userPath.slice(0, idx + 1);
-        updateHUD();
-        draw();
+      // Auto-commit when reaching goal
+      if(n === goalNode){
+        autoCommit();
       }
+      draw();
     }
   }
 
   function updateHUD(){
     if(spUserCost) spUserCost.textContent = String(userCost());
-    if(spCards) spCards.textContent = String(cardsLeft);
   }
 
   function newGame(){
     resetState();
     layoutNodes();
     buildGridEdges();
-    // Reveal a few edges near start to orient the player
+    // Reveal a few edges near start to orient the player (no cards/draws anymore)
     revealSomeEdges(3);
     updateHUD();
     draw();
   }
 
-  function commitRoute(){
-    if(userPath[userPath.length - 1] !== goalNode) return; // must reach goal first
+  function autoCommit(){
     userCommitted = true;
-    // Reveal all edges to show optimal
+    // Reveal all edges to show actual weights
     edges.forEach(e => e.revealed = true);
     const res = dijkstra(startNode, goalNode);
     aiPath = res.path; aiCost = res.cost;
     if(spAICost) spAICost.textContent = String(aiCost);
-    draw();
   }
 
   // Controls
   if(btnNew) btnNew.addEventListener('click', () => newGame());
-  if(btnDraw) btnDraw.addEventListener('click', () => {
-    if(userCommitted) return;
-    if(cardsLeft <= 0) return;
-    cardsLeft -= 1;
-    revealSomeEdges(EDGE_REVEAL_PER_CARD);
-    updateHUD();
-    draw();
-  });
-  if(btnCommit) btnCommit.addEventListener('click', commitRoute);
-  if(btnFog) btnFog.addEventListener('click', () => { fogEnabled = !fogEnabled; draw(); });
+  // draw button removed
+  // commit button removed; commit happens automatically on reaching goal
+  // fog toggle removed
   if(btnSolve) btnSolve.addEventListener('click', () => {
-    // Show AI path without forcing commit: softly reveal AI path but do not reveal all weights
-    const res = dijkstra(startNode, goalNode);
+    // Risk-taking AI: choose route assuming optimistic costs for masked edges
+    const res = dijkstraRisky(startNode, goalNode);
     aiPath = res.path; aiCost = res.cost;
     if(spAICost) spAICost.textContent = String(aiCost);
     draw();

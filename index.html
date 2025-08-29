@@ -140,20 +140,16 @@
 
         <div class="card panel game-controls" data-game="path">
           <div class="controls">
-            <div class="row"><strong>Goal:</strong> You vs AI. Start at node 1 and reach the goal with the smallest total edge cost. Tap adjacent nodes to extend your route. Fog hides some edge weights: use Draw card to reveal random hidden edges. Reach the goal, then Commit route to reveal the optimal path and compare your cost to AI.</div>
+            <div class="row"><strong>Goal:</strong> You vs AI. Start at node 1 and reach the goal with the smallest total edge cost. Some edges are masked and show a range; the AI is a little risk‑seeking and plans using the low end of those ranges. You’re trying to find the true best route. Reach the goal, then Commit to reveal the AI’s chosen path and compare costs.</div>
             <div class="row">
               <button class="btn primary" id="spNewBtn">New map</button>
-              <button class="btn" id="spDrawBtn">Draw card</button>
-              <button class="btn" id="spCommitBtn">Commit route</button>
-              <button class="btn" id="spFogBtn">Toggle fog</button>
               <button class="btn" id="spSolveBtn">AI: Solve</button>
             </div>
-            <div class="grid cols-2">
-              <div class="stat"> <span>Cards left</span> <span class="value" id="spCards">5</span> </div>
+            <div class="grid cols-1">
               <div class="stat"> <span>Your cost</span> <span class="value" id="spUserCost">0</span> </div>
             </div>
             <div class="stat"> <span>AI cost</span> <span class="value" id="spAICost">–</span> </div>
-            <p class="hint">Basics: (1) Tap adjacent nodes to build a path from Start to Goal. (2) Draw card reveals a few hidden edge weights. (3) Commit only after you’ve reached the goal to lock your route and reveal the optimal (Dijkstra) path and cost. (4) AI: Solve shows the optimal route without committing. You can backtrack by tapping an earlier node.</p>
+            <p class="hint">Basics: (1) Tap adjacent nodes to build a path from Start to Goal. (2) Masked edges show a range; the AI plans using the range’s lower bound, so it may take risky routes. (3) There’s no undo: each move is final. Reaching the goal automatically reveals your true cost and the AI’s chosen path and cost. (4) AI: Solve shows the AI’s current best guess at any time. You’re trying to find the true best route while the AI is a little risk‑seeking.</p>
           </div>
         </div>
 
